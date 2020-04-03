@@ -1,4 +1,4 @@
-class CLI
+class CLInotes
 
 ######  User options  ######
   # need main menu (see below)

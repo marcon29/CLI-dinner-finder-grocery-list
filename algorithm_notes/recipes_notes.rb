@@ -1,4 +1,4 @@
-class Recipes
+class RecipesNotes
   # controls recipe instantiation
         # has a name, slug, ingredients, description??? (need to udpate scraper for this)
   # creates recipe list (all recipes)
