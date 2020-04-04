@@ -20,7 +20,6 @@ class Scraper
     end
     ingredients
   end
-end  #remove this when done testing single recipes and uncomment the last end
 
 #    def self.scrape_category(url)
 #      doc = Nokogiri::HTML(open(url))
@@ -45,35 +44,35 @@ end  #remove this when done testing single recipes and uncomment the last end
   #   ]
   # end
   #
-  # # url = "https://www.allrecipes.com/recipes/main-dish/beef/"
-  # def self.scrape_category(url=nil)
-  #   dishes = [
-  #     "Hamburger Steak with Onions and Gravy",
-  #     "Beef Stroganoff III",
-  #     "Beef Tenderloin with Ginger-Shiitake Brown Butter",
-  #     "Blue Cheese Beef Tenderloin",
-  #     "Crispy Orange Beef",
-  #     "Awesome Slow Cooker Pot Roast",
-  #     "Brown Sugar Meatloaf",
-  #     "Easy Meatloaf",
-  #     "Salisbury Steak",
-  #     "Meatball Nirvana",
-  #     "Italian Spaghetti Sauce with Meatballs",
-  #     "Slow-Cooker Pepper Steak",
-  #     "Rempel Family Meatloaf",
-  #     "Stuffed Green Peppers I",
-  #     "Slow Cooker Salisbury Steak",
-  #     "Mini Meatloaves",
-  #     "Garlic Prime Rib",
-  #     "Marie's Easy Slow Cooker Pot Roast",
-  #     "High Temperature Eye-of-Round Roast",
-  #     "Chef John's Stuffed Peppers",
-  #     "Foolproof Rib Roast",
-  #     "Stuffed Peppers",
-  #     "Chef John's Italian Meatballs",
-  #     "Slow-Cooker Corned Beef and Cabbage"
-  #   ]
-  # end
+  # url = "https://www.allrecipes.com/recipes/main-dish/beef/"
+  def self.scrape_category(url=nil)
+    dishes = [
+      "Hamburger Steak with Onions and Gravy",
+      "Beef Stroganoff III",
+      "Beef Tenderloin with Ginger-Shiitake Brown Butter",
+      "Blue Cheese Beef Tenderloin",
+      "Crispy Orange Beef",
+      "Awesome Slow Cooker Pot Roast",
+      "Brown Sugar Meatloaf",
+      "Easy Meatloaf",
+      "Salisbury Steak",
+      "Meatball Nirvana",
+      "Italian Spaghetti Sauce with Meatballs",
+      "Slow-Cooker Pepper Steak",
+      "Rempel Family Meatloaf",
+      "Stuffed Green Peppers I",
+      "Slow Cooker Salisbury Steak",
+      "Mini Meatloaves",
+      "Garlic Prime Rib",
+      "Marie's Easy Slow Cooker Pot Roast",
+      "High Temperature Eye-of-Round Roast",
+      "Chef John's Stuffed Peppers",
+      "Foolproof Rib Roast",
+      "Stuffed Peppers",
+      "Chef John's Italian Meatballs",
+      "Slow-Cooker Corned Beef and Cabbage"
+    ]
+  end
 
 #######################################
-#end
+end

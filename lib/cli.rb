@@ -60,26 +60,35 @@ class CLI
 
   def get_recipe
     puts "If you know the recipe you want, enter its name. If not, enter 'browse'."
-    puts "(You must enter the exact name to find a specific recipe.)"
+    puts "(You must enter the EXACT name to find a specific recipe.)"
     input = normalize(gets.strip)
 
     # if browse, call browse method, else use user input as recipe name to instantiate recipe object
     if input == "Browse" || input == "Find" || input == "Search" || input == "Lookup"
-      puts "run browse functionality"
+      browse_recipes(input)
     elsif Recipes.find_by_name(input)
       puts "You've already added that recipe."
       puts ""
     else
-      begin
-        Recipes.new(input)
-      rescue OpenURI::HTTPError
-        puts "That item is not on Allrecipes.com. Please try another or browse."
-        get_recipe
-      else
-        puts "#{input} has been added to your recipes."
-        puts ""
-      end
+      get_known_recipe(input)
     end
+  end
+
+  def get_known_recipe(input)
+    begin
+      Recipes.new(input)
+    rescue OpenURI::HTTPError
+      puts "That item is not on Allrecipes.com. Please try another or browse."
+      get_recipe
+    else
+      puts "#{input} has been added to your recipes."
+      puts ""
+    end
+  end
+
+  def browse_recipes(input=nil)  #stub - remove arg as optional when done
+    puts "run browse functionality"
+    #once recipe selected, will run get_known_recipe
   end
 
   def view_recipes_menu_option
