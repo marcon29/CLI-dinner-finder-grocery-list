@@ -66,6 +66,9 @@ class CLI
     # if browse, call browse method, else use user input as recipe name to instantiate recipe object
     if input == "Browse" || input == "Find" || input == "Search" || input == "Lookup"
       puts "run browse functionality"
+    elsif Recipes.find_by_name(input)
+      puts "You've already added that recipe."
+      puts ""
     else
       begin
         Recipes.new(input)
