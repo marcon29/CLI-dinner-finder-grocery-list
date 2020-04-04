@@ -10,5 +10,5 @@ end
 
 require_relative "../lib/cli"
 require_relative "../lib/recipes"
-require_relative "../lib/scraper_category"
-require_relative "../lib/scraper_recipe"
+require_relative "../lib/categories"
+require_relative "../lib/scraper"

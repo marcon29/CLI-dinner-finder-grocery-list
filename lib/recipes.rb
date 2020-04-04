@@ -10,7 +10,8 @@ class Recipes
   def initialize(name)
     @name = name.split.collect(&:capitalize).join(' ')
     @slug = name.gsub(" ", "-")
-    @ingredients = Scraper.scrape_recipe(create_url)
+    #@ingredients = Scraper.scrape_recipe(create_url)
+    # need validation for bad entries
     @@all << self
   end
 
@@ -40,6 +41,11 @@ class Recipes
   # delete all recipes
   def self.delete_all
     self.all.clear
+  end
+
+  # get only names from all recipes
+  def self.all_names
+    self.all.collect { |r| r.name }
   end
 
   # get only ingredients from all recipes (returns nested array)

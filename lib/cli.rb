@@ -1,5 +1,3 @@
-class CLI
-
 ######  User options  ######
   # need main menu (see below)
   # need a meal type menu
@@ -10,58 +8,68 @@ class CLI
   # need side dish menu
       # list of side dishes (i.e. vegetables, rice, potatoes, etc.)
 
+class CLI
+  # need to exit at any time
 
-######  User actions (besides adding recipes)  ######
-  # need to view all recipes
-      # requires a Recipes.all
-  # need delete a recipe
-      # requires Recipes.all, single-instance finder, single-instance remover
-  # need clear all recipes
-      # requires Recipes.all, Recipes.all.clear
-  # need view all ingredients
-      # requires Recipes.all, filter for ingredients only
+  def self.main_menu
+  #def main_menu
+    puts "What would you like to do? (enter number)"
+    puts "1. add recipe"
+    puts "2. view all recipes"
+    puts "3. delete a recipe"
+    puts "4. delete ALL recipes"
+    puts "5. view all recipe ingredients"
+    puts "6. exit"
 
+    input = gets.strip
 
-######  Object Relationships  ######
-  # CLI/recipe ojects
-      # CLI instantiates objects
-      # CLI has access to instnaces via Recipes.all
-  # CLI/category ojects
-      # CLI instantiates objects
-      # CLI has access to instnaces via Categories.all
-      # CLI passes data from category object to recipe object (at instantiation)
-  # recipe/category ojects
-      # through CLI
-  # scraper/recipe/category ojects
-      # recipes and categories need access to scraper methods only (class methods)
-
-
-######  Flow  ######
-  # greeting
-  puts "Welcome to the Dinner Finder & Grocery List Maker CLI app"
-  puts ""
-  puts "Add recipes from Allrecipes.com and get a list of ingredients so you know what to get at the store."
-  puts "Add a recipe to get started."
-
-  # print main menu
-  puts ""
-  puts "What would you like to do? (enter number)"
-  puts "1. add recipe"
-      # add recipe
-      # view recipes (names only from all recipe instances)
-      # delete recipe (single recipe instance, by recipe name)
-      # clear all recipes (all recipe instances)
-      # print ingredients (ingredients only from all recipe instances)
+    if input.to_i.between?(1,6)
+      case input
+        when "1"
+          # add recipe
+          get_recipe
+          main_menu
+        when "2"
+          # view recipes (names only from all recipe instances)
+          puts Recipes.all_names
+          main_menu
+        when "3"
+          puts "you still need to figure out best way to do this"
+          # delete recipe (single recipe instance, by recipe name)
+          main_menu
+        when "4"
+          # clear all recipes (all recipe instances)
+          Recipes.delete_all
+          main_menu
+        when "5"
+          # print ingredients (ingredients only from all recipe instances)
+          puts Recipes.all_ingredients
+          main_menu
+        when "6"
+          puts "Goodbye"
+      end
+    else
+      "Please enter only 1, 2, 3, 4, or 5"
+    end
+  end
 
       # get recipe name or browse
-  puts ""
-  puts "If you know the recipe you want, enter its name. If not, enter 'browse'."
-  puts "(You must enter the exact name to find a specific recipe.)"
-  input = gets.strip.downcase
-  Recipes.new(input)
-      # if get name
-          # user input, returns recipe name
-          # instantiate recipe object using name
+  def self.get_recipe
+  #def get_recipe
+    puts "If you know the recipe you want, enter its name. If not, enter 'browse'."
+    puts "(You must enter the exact name to find a specific recipe.)"
+    input = gets.strip.downcase
+
+    # if browse, call browse method
+    # if get name: use user input as recipe name to instantiate recipe object
+    if input == "browse" || input == "find" || input == "search" || input == "lookup"
+      puts "You still need to build the browse functionality."
+    else
+      Recipes.new(input)
+      # need validation for bad entries
+    end
+  end
+end
       # if browse
           # main or side? (make array so can add more later - see above meal type menu?)
           # display applicable menu: main dish menu or side dish menu (all category options)
@@ -70,6 +78,3 @@ class CLI
               # instantiate category object using name
           # print recipe options for category
           # user selects recipe (loop back to getting recipe name above)
-  # use recipe instances for all other functionality
-
-end

@@ -31,7 +31,6 @@ class Scraper
   # stub versions for testing
 
   # url = "https://www.allrecipes.com/recipe/quick-italian-skillet-dinner/"
-class Scraper
   def self.scrape_recipe(url=nil)
     ingredients = [
       "1 pound Italian sausage",
@@ -43,7 +42,7 @@ class Scraper
       "1 cup shredded mozzarella cheese"
     ]
   end
-end
+
   # url = "https://www.allrecipes.com/recipes/main-dish/beef/"
   def self.scrape_category(url=nil)
     dishes = [

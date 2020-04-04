@@ -1,3 +1,16 @@
 #!/usr/bin/env ruby
 
 require_relative "../config/environment"
+require 'pry'
+
+######  Flow  ######
+  # greeting
+puts "Welcome to the Dinner Finder & Grocery List Maker CLI app"
+puts ""
+puts "Add recipes from Allrecipes.com and get a list of ingredients so you know what to get at the store."
+puts "Add a recipe to get started."
+
+  # print main menu
+puts ""
+CLI.main_menu
+puts ""
