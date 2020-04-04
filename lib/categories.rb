@@ -12,8 +12,7 @@ class Categories
   def initialize(name)
     @name = name
     @slug = name.gsub(" ", "-").downcase
-#    @recipes = Scraper.scrape_category(create_url)
-    @recipes = Scraper.scrape_category(@name)
+    @recipes = Scraper.scrape_category(create_url)
     @@all << self
   end
 

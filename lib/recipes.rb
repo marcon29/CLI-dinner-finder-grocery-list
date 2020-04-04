@@ -7,7 +7,6 @@ class Recipes
   @@all = []
 
   def initialize(name)
-#    @name = name.split.collect(&:capitalize).join(' ')
     @name = name
     @slug = name.gsub(" ", "-").downcase
     @ingredients = Scraper.scrape_recipe(create_url)
@@ -18,7 +17,6 @@ class Recipes
   def create_url
     "https://www.allrecipes.com/recipe/" << slug
   end
-
 
   # return all recipes
   def self.all

@@ -3,7 +3,6 @@ class CLI
 
   # need main menu (see below)
   def main_menu
-  #def main_menu
     puts "What would you like to do? (enter number)"
     puts "1. Add recipe"
     puts "2. View all recipes"
@@ -52,6 +51,7 @@ class CLI
     puts "If you know the recipe you want, enter its name. If not, enter 'browse'."
     puts "(You must enter the EXACT name to find a specific recipe.)"
     input = normalize(gets.strip)
+    puts ""
 
     # if browse, call browse method, else use user input as recipe name to instantiate recipe object
     if input == "Browse" || input == "Find" || input == "Search" || input == "Lookup"
@@ -148,30 +148,27 @@ class CLI
     # end
 
     def browse_recipes
-      #puts "browse function selected"
       main_dish_menu
     end
 
     # need main dish menu, list of main dishes (i.e. beef, chicken, vegetarian, etc.) - make extendable
     # need side dish menu, list of side dishes (i.e. vegetables, rice, potatoes, etc.) - make extendable
     def main_dish_menu
-      #main_dishes = ["beef"]
       main_dishes = ["beef", "chicken"]
 
       puts "Choose a main dish category (enter 1-#{main_dishes.count})"
       main_dishes.each_with_index { |md, i| puts "#{i+1}. #{md.capitalize} dishes" }
 
       input = gets.strip.to_i
+      puts ""
 
       if input.between?(1, main_dishes.count)
-        puts "#{main_dishes[input-1].capitalize} selected."
         get_category(main_dishes[input-1])
       else
         puts "That item is not on the list."
         main_dish_menu
       end
     end
-
 
     def get_category(input)
         category = Categories.new(input)
@@ -183,6 +180,7 @@ class CLI
 
         input = gets.strip.to_i
         item = category.recipes[input-1]
+        puts ""
 
         if input.between?(1, count)
           get_recipe(item)

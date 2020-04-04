@@ -1,10 +1,5 @@
 require 'open-uri'
 
-# creates ingredient list from website data (recipe pages)
-# creates recipe list from website data (category pages)
-# needs respective urls
-# returns ingredient and recipe lists, respecively
-
 class Scraper
 
   # real versions
@@ -21,12 +16,12 @@ class Scraper
     ingredients
   end
 
-#    def self.scrape_category(url)
-#      doc = Nokogiri::HTML(open(url))
-#      items = doc.css(".fixed-recipe-card h3")
-#      items.collect { |i| i.text.strip }
-#    end
-# end
+   def self.scrape_category(url)
+     doc = Nokogiri::HTML(open(url))
+     items = doc.css(".fixed-recipe-card h3")
+     items.collect { |i| i.text.strip }
+   end
+
 
 #######################################
   # # stub versions for testing
@@ -44,33 +39,29 @@ class Scraper
   #   ]
   # end
   #
-  # url = "https://www.allrecipes.com/recipes/main-dish/beef/"
-  def self.scrape_category(url=nil)
-    if url == "beef"
-      dishes = [
-        "Beef Stroganoff III",
-        "Crispy Orange Beef",
-        "Awesome Slow Cooker Pot Roast",
-        "Brown Sugar Meatloaf",
-        "Easy Meatloaf",
-        "Salisbury Steak",
-        "Meatball Nirvana",
-      ]
-    elsif url == "chicken"
-      dishes = [
-        "BBQ Chicken Pizza",
-        "Skillet Chicken Bulgogi",
-        "Chef John's Calabrian Chicken",
-        "Chicken Lemon Linguine",
-        "Honey-Mustard Chicken with Roasted Vegetables",
-        "Garlic Cheddar Chicken"
-      ]
-    end
-
-
-
-
-  end
+  # # url = "https://www.allrecipes.com/recipes/main-dish/beef/"
+  # def self.scrape_category(url=nil)
+  #   if url == "beef"
+  #     dishes = [
+  #       "Beef Stroganoff III",
+  #       "Crispy Orange Beef",
+  #       "Awesome Slow Cooker Pot Roast",
+  #       "Brown Sugar Meatloaf",
+  #       "Easy Meatloaf",
+  #       "Salisbury Steak",
+  #       "Meatball Nirvana",
+  #     ]
+  #   elsif url == "chicken"
+  #     dishes = [
+  #       "BBQ Chicken Pizza",
+  #       "Skillet Chicken Bulgogi",
+  #       "Chef John's Calabrian Chicken",
+  #       "Chicken Lemon Linguine",
+  #       "Honey-Mustard Chicken with Roasted Vegetables",
+  #       "Garlic Cheddar Chicken"
+  #     ]
+  #   end
+  # end
 
 #######################################
 end
