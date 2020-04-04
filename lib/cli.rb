@@ -35,15 +35,30 @@ class CLI
   # scraper/recipe/category ojects
       # recipes and categories need access to scraper methods only (class methods)
 
+
 ######  Flow  ######
   # greeting
+  puts "Welcome to the Dinner Finder & Grocery List Maker CLI app"
+  puts ""
+  puts "Add recipes from Allrecipes.com and get a list of ingredients so you know what to get at the store."
+  puts "Add a recipe to get started."
+
   # print main menu
+  puts ""
+  puts "What would you like to do? (enter number)"
+  puts "1. add recipe"
       # add recipe
       # view recipes (names only from all recipe instances)
       # delete recipe (single recipe instance, by recipe name)
       # clear all recipes (all recipe instances)
       # print ingredients (ingredients only from all recipe instances)
-  # get recipe name or browse
+
+      # get recipe name or browse
+  puts ""
+  puts "If you know the recipe you want, enter its name. If not, enter 'browse'."
+  puts "(You must enter the exact name to find a specific recipe.)"
+  input = gets.strip.downcase
+  Recipes.new(input)
       # if get name
           # user input, returns recipe name
           # instantiate recipe object using name

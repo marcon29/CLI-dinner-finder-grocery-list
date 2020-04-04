@@ -1,24 +1,50 @@
 class Recipes
-  # controls recipe instantiation
-        # has a name, slug, ingredients, description??? (need to udpate scraper for this)
-  # creates recipe list (all recipes)
-  # can find a specific recipe
-  # can delete a specific recipe
-  # can delete all recipes
-  # creates final product - all ingredients from all recipes
+  attr_accessor :name, :slug, :ingredients
 
+  # normalize name method
+  # make base url variable
 
-  # gets a recipe name (from CLI)
-  # converts recipe name to url
-  # sends url to recipe scraper
-      # scraper gets ingredients from website
-  # gets ingredients from scraper
-  # instantiates recipe with scraped data (ingredients)
   # collects all recipes into array
-      # from recipe collection
-          # find a recipe
-          # delete a recipe
-          # return all recipes
-          # return only ingredients from all recipes
+  @@all = []
+
+  def initialize(name)
+    @name = name.split.collect(&:capitalize).join(' ')
+    @slug = name.gsub(" ", "-")
+    @ingredients = Scraper.scrape_recipe(create_url)
+    @@all << self
+  end
+
+  # converts recipe name to url
+  def create_url
+    "https://www.allrecipes.com/recipe/" << slug
+  end
+
+
+  # return all recipes
+  def self.all
+    @@all
+  end
+
+  # find a recipe (returns recipe object, nil if names don't match)
+  def self.find_by_name(name)
+    search_name = name.split.collect(&:capitalize).join(' ')
+    self.all.detect { |r| r.name == search_name }
+  end
+
+  # delete a recipe
+  def self.delete(name)
+    search_name = name.split.collect(&:capitalize).join(' ')
+    self.all.delete_if { |r| r.name == search_name }
+  end
+
+  # delete all recipes
+  def self.delete_all
+    self.all.clear
+  end
+
+  # get only ingredients from all recipes (returns nested array)
+  def self.all_ingredients
+    self.all.collect { |r| r.ingredients }
+  end
 
 end
