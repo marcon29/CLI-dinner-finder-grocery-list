@@ -46,32 +46,30 @@ class Scraper
   #
   # url = "https://www.allrecipes.com/recipes/main-dish/beef/"
   def self.scrape_category(url=nil)
-    dishes = [
-      "Hamburger Steak with Onions and Gravy",
-      "Beef Stroganoff III",
-      "Beef Tenderloin with Ginger-Shiitake Brown Butter",
-      "Blue Cheese Beef Tenderloin",
-      "Crispy Orange Beef",
-      "Awesome Slow Cooker Pot Roast",
-      "Brown Sugar Meatloaf",
-      "Easy Meatloaf",
-      "Salisbury Steak",
-      "Meatball Nirvana",
-      "Italian Spaghetti Sauce with Meatballs",
-      "Slow-Cooker Pepper Steak",
-      "Rempel Family Meatloaf",
-      "Stuffed Green Peppers I",
-      "Slow Cooker Salisbury Steak",
-      "Mini Meatloaves",
-      "Garlic Prime Rib",
-      "Marie's Easy Slow Cooker Pot Roast",
-      "High Temperature Eye-of-Round Roast",
-      "Chef John's Stuffed Peppers",
-      "Foolproof Rib Roast",
-      "Stuffed Peppers",
-      "Chef John's Italian Meatballs",
-      "Slow-Cooker Corned Beef and Cabbage"
-    ]
+    if url == "beef"
+      dishes = [
+        "Beef Stroganoff III",
+        "Crispy Orange Beef",
+        "Awesome Slow Cooker Pot Roast",
+        "Brown Sugar Meatloaf",
+        "Easy Meatloaf",
+        "Salisbury Steak",
+        "Meatball Nirvana",
+      ]
+    elsif url == "chicken"
+      dishes = [
+        "BBQ Chicken Pizza",
+        "Skillet Chicken Bulgogi",
+        "Chef John's Calabrian Chicken",
+        "Chicken Lemon Linguine",
+        "Honey-Mustard Chicken with Roasted Vegetables",
+        "Garlic Cheddar Chicken"
+      ]
+    end
+
+
+
+
   end
 
 #######################################

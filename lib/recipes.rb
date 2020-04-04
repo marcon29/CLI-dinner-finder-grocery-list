@@ -14,8 +14,6 @@ class Recipes
     @@all << self
   end
 
-  def save_if_valid
-  end
   # converts recipe name to url
   def create_url
     "https://www.allrecipes.com/recipe/" << slug

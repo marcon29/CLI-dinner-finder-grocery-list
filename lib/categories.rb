@@ -1,18 +1,40 @@
 class Categories
-  # controls category instantiation
-        # has a name, slug, recipes
+  attr_accessor :name, :slug, :recipes
+
   # creates recipe options list (all recipes)
+  # make base url variable???
+
+  # collects all categories into array
+  @@all = []
 
   # gets a meal type name (from CLI)
   # gets a category name (from CLI)
+  def initialize(name)
+    @name = name
+    @slug = name.gsub(" ", "-").downcase
+#    @recipes = Scraper.scrape_category(create_url)
+    @recipes = Scraper.scrape_category(@name)
+    @@all << self
+  end
+
   # converts meal type and category names to url
-  # sends url to category scraper
-      # scraper gets recipes from website
-  # gets recipes from scraper
-  # instantiates category with scraped data (array of recipe names)
-  # collects all categories into array
-      #from category collection
-          # return only names of all recipes (for user menu creation)
-          # return all categories (for possible user menu creation)
+  def create_url
+    "https://www.allrecipes.com/recipes/main-dish/" << slug
+  end
+
+  # return all categories (for possible user menu creation)
+  def self.all
+    @@all
+  end
+
+  # return only names of all categories (for user menu creation)
+  def self.all_category_names
+    self.all.collect { |r| r.name }
+  end
+
+  # return all recipe names in category (for user menu creation)
+  def self.all_recipe_names
+    self.all.collect { |r| r.recipes }
+  end
 
 end

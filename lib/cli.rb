@@ -1,16 +1,7 @@
-######  User options  ######
-  # need main menu (see below)
-  # need a meal type menu
-      # list of meal types (i.e. main dishes, side dishes, breakfast, lunch, etc.)
-          # hard code in way to make extendable
-  # need main dish menu
-      # list of main dishes (i.e. beef, chicken, vegetarian, etc.)
-  # need side dish menu
-      # list of side dishes (i.e. vegetables, rice, potatoes, etc.)
-
 class CLI
   # need to exit at any time
 
+  # need main menu (see below)
   def main_menu
   #def main_menu
     puts "What would you like to do? (enter number)"
@@ -24,9 +15,9 @@ class CLI
 
     if input.to_i.between?(1,6)
       case input
-        when "1"       # add recipe, # get recipe name or browse
+        when "1"       # add recipe, get recipe name or browse
           puts ""
-          get_recipe
+          add_recipe_menu_option
           puts ""
           main_menu
         when "2"       # view recipes (names only from all recipe instances)
@@ -41,7 +32,6 @@ class CLI
           main_menu
         when "4"        # print ingredients (ingredients only from all recipe instances)
           puts ""
-          # puts Recipes.all_ingredients
           grocery_list_menu_option
           puts ""
           main_menu
@@ -58,37 +48,32 @@ class CLI
     end
   end
 
-  def get_recipe
+  def add_recipe_menu_option
     puts "If you know the recipe you want, enter its name. If not, enter 'browse'."
     puts "(You must enter the EXACT name to find a specific recipe.)"
     input = normalize(gets.strip)
 
     # if browse, call browse method, else use user input as recipe name to instantiate recipe object
     if input == "Browse" || input == "Find" || input == "Search" || input == "Lookup"
-      browse_recipes(input)
+      browse_recipes
     elsif Recipes.find_by_name(input)
       puts "You've already added that recipe."
       puts ""
     else
-      get_known_recipe(input)
+      get_recipe(input)
     end
   end
 
-  def get_known_recipe(input)
+  def get_recipe(input)
     begin
       Recipes.new(input)
     rescue OpenURI::HTTPError
-      puts "That item is not on Allrecipes.com. Please try another or browse."
-      get_recipe
+      puts "That recipe is not on Allrecipes.com. Please try another or browse."
+      add_recipe_menu_option
     else
       puts "#{input} has been added to your recipes."
       puts ""
     end
-  end
-
-  def browse_recipes(input=nil)  #stub - remove arg as optional when done
-    puts "run browse functionality"
-    #once recipe selected, will run get_known_recipe
   end
 
   def view_recipes_menu_option
@@ -153,4 +138,63 @@ class CLI
               # instantiate category object using name
           # print recipe options for category
           # user selects recipe (loop back to getting recipe name above)
+
+    # need a meal type menu, list of meal types (i.e. main dishes, side dishes, breakfast, lunch, etc.) - make extendable
+    # def meal_type_menu
+    #   meal_types = ["main dishes", "side dishes"]
+    #
+    #   puts "Choose a meal type (enter number)"
+    #   meal_types.each_with_index { |mt, i| puts "#{i+1}. #{mt.capitalize} dishes" }
+    # end
+
+    def browse_recipes
+      #puts "browse function selected"
+      main_dish_menu
+    end
+
+    # need main dish menu, list of main dishes (i.e. beef, chicken, vegetarian, etc.) - make extendable
+    # need side dish menu, list of side dishes (i.e. vegetables, rice, potatoes, etc.) - make extendable
+    def main_dish_menu
+      #main_dishes = ["beef"]
+      main_dishes = ["beef", "chicken"]
+
+      puts "Choose a main dish category (enter 1-#{main_dishes.count})"
+      main_dishes.each_with_index { |md, i| puts "#{i+1}. #{md.capitalize} dishes" }
+
+      input = gets.strip.to_i
+
+      if input.between?(1, main_dishes.count)
+        puts "#{main_dishes[input-1].capitalize} selected."
+        get_category(main_dishes[input-1])
+      else
+        puts "That item is not on the list."
+        main_dish_menu
+      end
+    end
+
+
+    def get_category(input)
+        category = Categories.new(input)
+        count = category.recipes.count
+
+        puts "Which #{input} recipe would you like to add? (enter 1-#{count+1})"
+        category.recipes.each_with_index { |r, i| puts "#{i+1}. #{r}" }
+        puts "#{count+1}. Nevermind. Go back."
+
+        input = gets.strip.to_i
+        item = category.recipes[input-1]
+
+        if input.between?(1, count)
+          get_recipe(item)
+        elsif input == count+1
+          puts "Yeah, let's look at something else."
+          main_dish_menu
+        else
+          puts "That item is not on the list."
+          get_category(input)
+        end
+    end
+
+
+
 end
