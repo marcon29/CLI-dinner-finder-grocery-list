@@ -67,10 +67,15 @@ class CLI
     if input == "Browse" || input == "Find" || input == "Search" || input == "Lookup"
       puts "run browse functionality"
     else
-      # need validation for bad entries
-      Recipes.new(input)
-      puts "#{input} has been added to your recipes."
-      puts ""
+      begin
+        Recipes.new(input)
+      rescue OpenURI::HTTPError
+        puts "That item is not on Allrecipes.com. Please try another or browse."
+        get_recipe
+      else
+        puts "#{input} has been added to your recipes."
+        puts ""
+      end
     end
   end
 
@@ -115,9 +120,9 @@ class CLI
     if Recipes.all.count == 0
       puts "You haven't added any recipes yet."
     else
-      Recipes.all.each do |r|
-        puts r.name
-        puts r.ingredients
+      Recipes.all.each do |recipe|
+        puts recipe.name
+        puts recipe.ingredients
         puts ""
       end
     end

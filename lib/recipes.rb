@@ -1,8 +1,7 @@
 class Recipes
   attr_accessor :name, :slug, :ingredients
 
-  # normalize name method
-  # make base url variable
+  # make base url variable???
 
   # collects all recipes into array
   @@all = []
@@ -10,12 +9,13 @@ class Recipes
   def initialize(name)
 #    @name = name.split.collect(&:capitalize).join(' ')
     @name = name
-    @slug = name.gsub(" ", "-")
+    @slug = name.gsub(" ", "-").downcase
     @ingredients = Scraper.scrape_recipe(create_url)
-    # need validation for bad entries
     @@all << self
   end
 
+  def save_if_valid
+  end
   # converts recipe name to url
   def create_url
     "https://www.allrecipes.com/recipe/" << slug
