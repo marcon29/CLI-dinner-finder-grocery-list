@@ -12,5 +12,5 @@ puts "Add a recipe to get started."
 
   # print main menu
 puts ""
-CLI.main_menu
+CLI.new.main_menu
 puts ""

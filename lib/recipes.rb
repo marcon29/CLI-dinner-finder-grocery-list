@@ -8,9 +8,10 @@ class Recipes
   @@all = []
 
   def initialize(name)
-    @name = name.split.collect(&:capitalize).join(' ')
+#    @name = name.split.collect(&:capitalize).join(' ')
+    @name = name
     @slug = name.gsub(" ", "-")
-    #@ingredients = Scraper.scrape_recipe(create_url)
+    @ingredients = Scraper.scrape_recipe(create_url)
     # need validation for bad entries
     @@all << self
   end
@@ -28,14 +29,16 @@ class Recipes
 
   # find a recipe (returns recipe object, nil if names don't match)
   def self.find_by_name(name)
-    search_name = name.split.collect(&:capitalize).join(' ')
-    self.all.detect { |r| r.name == search_name }
+#    search_name = name.split.collect(&:capitalize).join(' ')
+#    self.all.detect { |r| r.name == search_name }
+    self.all.detect { |r| r.name == name }
   end
 
   # delete a recipe
   def self.delete(name)
-    search_name = name.split.collect(&:capitalize).join(' ')
-    self.all.delete_if { |r| r.name == search_name }
+    # search_name = name.split.collect(&:capitalize).join(' ')
+    # self.all.delete_if { |r| r.name == search_name }
+    self.all.delete_if { |r| r.name == name }
   end
 
   # delete all recipes
