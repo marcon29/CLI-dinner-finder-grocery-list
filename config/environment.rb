@@ -8,7 +8,8 @@ module CliDinnerFinderGroceryList
   # Your code goes here...
 end
 
-require_relative "../lib/cli"
-require_relative "../lib/recipes"
-require_relative "../lib/categories"
+require_relative "../lib/pagetype"
 require_relative "../lib/scraper"
+require_relative "../lib/recipe"
+require_relative "../lib/category"
+require_relative "../lib/cli"

@@ -1,7 +1,7 @@
 class CLI
   # need to exit at any time
 
-  # need main menu (see below)
+  # need main menu
   def main_menu
     puts "What would you like to do? (enter number)"
     puts "1. Add recipe"
@@ -56,7 +56,7 @@ class CLI
     # if browse, call browse method, else use user input as recipe name to instantiate recipe object
     if input == "Browse" || input == "Find" || input == "Search" || input == "Lookup"
       browse_recipes
-    elsif Recipes.find_by_name(input)
+    elsif Recipe.find_by_name(input)
       puts "You've already added that recipe."
       puts ""
     else
@@ -66,7 +66,7 @@ class CLI
 
   def get_recipe(input)
     begin
-      Recipes.new(input)
+      Recipe.new(input)
     rescue OpenURI::HTTPError
       puts "That recipe is not on Allrecipes.com. Please try another or browse."
       add_recipe_menu_option
@@ -77,32 +77,32 @@ class CLI
   end
 
   def view_recipes_menu_option
-    if Recipes.all.count == 0
+    if Recipe.all.count == 0
       puts "You haven't added any recipes yet."
     else
       puts "Here are all your current recipes."
-      puts Recipes.all_names
+      puts Recipe.all_instance_names
     end
   end
 
   def delete_recipe_menu_option
-    count = Recipes.all.count
+    count = Recipe.all.count
     if count == 0
       puts "You haven't added any recipes yet."
     else
       puts "Which recipe would you like to remove? (enter 1-#{count+2})"
-      Recipes.all_names.each_with_index { |r, i| puts "#{i+1}. #{r}" }
+      Recipe.all_instance_names.each_with_index { |r, i| puts "#{i+1}. #{r}" }
       puts "#{count+1}. Delete All"
       puts "#{count+2}. Nevermind. Go back."
 
       input = gets.strip.to_i
-      item = Recipes.all_names[input-1]
+      item = Recipe.all_instance_names[input-1]
 
       if input.between?(1, count)
-        Recipes.delete(item)
+        Recipe.delete(item)
         puts "#{item} has been removed."
       elsif input == count+1
-        Recipes.delete_all
+        Recipe.delete_all
         puts "All recipes have been removed."
       elsif input == count+2
         puts "I like these too. Glad you're keeping them."
@@ -114,12 +114,12 @@ class CLI
   end
 
   def grocery_list_menu_option
-    if Recipes.all.count == 0
+    if Recipe.all.count == 0
       puts "You haven't added any recipes yet."
     else
-      Recipes.all.each do |recipe|
+      Recipe.all.each do |recipe|
         puts recipe.name
-        puts recipe.ingredients
+        puts recipe.items
         puts ""
       end
     end
@@ -171,15 +171,15 @@ class CLI
     end
 
     def get_category(input)
-        category = Categories.new(input)
-        count = category.recipes.count
+        category = Category.new(input)
+        count = category.items.count
 
         puts "Which #{input} recipe would you like to add? (enter 1-#{count+1})"
-        category.recipes.each_with_index { |r, i| puts "#{i+1}. #{r}" }
+        category.items.each_with_index { |r, i| puts "#{i+1}. #{r}" }
         puts "#{count+1}. Nevermind. Go back."
 
         input = gets.strip.to_i
-        item = category.recipes[input-1]
+        item = category.items[input-1]
         puts ""
 
         if input.between?(1, count)
