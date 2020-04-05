@@ -6,9 +6,10 @@ class CLI
     puts "What would you like to do? (enter number)"
     puts "1. Add recipe"
     puts "2. View all recipes"
-    puts "3. Delete one or all recipes"
-    puts "4. Create grocery list"
-    puts "5. Exit"
+    puts "3. Delete a single recipe"
+    puts "4. Delete all recipes"
+    puts "5. Create grocery list"
+    puts "6. Exit"
 
     input = gets.strip
 
@@ -29,19 +30,23 @@ class CLI
           delete_recipe_menu_option
           puts ""
           main_menu
-        when "4"        # print ingredients (ingredients only from all recipe instances)
+        when "4"        # delete all recipes
+          delete_all_recipes_menu_option
+          puts ""
+          main_menu
+        when "5"        # print ingredients (ingredients only from all recipe instances)
           puts ""
           grocery_list_menu_option
           puts ""
           main_menu
-        when "5" || "exit" || "Exit"
+        when "6" || "exit" || "Exit"
           puts ""
           puts "Goodbye. Enjoy your meal."
           puts ""
       end
     else
       puts ""
-      puts "Please enter only 1, 2, 3, 4, or 5"
+      puts "Please enter only 1, 2, 3, 4, 5 or 6"
       puts ""
       main_menu
     end
@@ -55,7 +60,7 @@ class CLI
 
     # if browse, call browse method, else use user input as recipe name to instantiate recipe object
     if input == "Browse" || input == "Find" || input == "Search" || input == "Lookup"
-      browse_recipes
+      main_dish_menu("main dish")
     elsif Recipe.find_by_name(input)
       puts "You've already added that recipe."
       puts ""
@@ -90,10 +95,9 @@ class CLI
     if count == 0
       puts "You haven't added any recipes yet."
     else
-      puts "Which recipe would you like to remove? (enter 1-#{count+2})"
+      puts "Which recipe would you like to remove? (enter 1-#{count+1})"
       Recipe.all_instance_names.each_with_index { |r, i| puts "#{i+1}. #{r}" }
-      puts "#{count+1}. Delete All"
-      puts "#{count+2}. Nevermind. Go back."
+      puts "#{count+1}. Nevermind. Go back."
 
       input = gets.strip.to_i
       item = Recipe.all_instance_names[input-1]
@@ -102,14 +106,20 @@ class CLI
         Recipe.delete(item)
         puts "#{item} has been removed."
       elsif input == count+1
-        Recipe.delete_all
-        puts "All recipes have been removed."
-      elsif input == count+2
         puts "I like these too. Glad you're keeping them."
       else
         puts "That item is not on the list."
         delete_recipe_menu_option
       end
+    end
+  end
+
+  def delete_all_recipes_menu_option
+    if Recipe.all.count == 0
+      puts "You haven't added any recipes yet."
+    else
+      Recipe.delete_all
+      puts "All recipes have been removed."
     end
   end
 
@@ -147,51 +157,64 @@ class CLI
     #   meal_types.each_with_index { |mt, i| puts "#{i+1}. #{mt.capitalize} dishes" }
     # end
 
-    def browse_recipes
-      main_dish_menu
-    end
-
     # need main dish menu, list of main dishes (i.e. beef, chicken, vegetarian, etc.) - make extendable
     # need side dish menu, list of side dishes (i.e. vegetables, rice, potatoes, etc.) - make extendable
-    def main_dish_menu
-      main_dishes = ["beef", "chicken"]
+    def main_dish_menu(menu_type)
+      category = Category.new(menu_type)
+      options = category.items
+      count = options.count
 
-      puts "Choose a main dish category (enter 1-#{main_dishes.count})"
-      main_dishes.each_with_index { |md, i| puts "#{i+1}. #{md.capitalize} dishes" }
+      puts "Choose a #{menu_type} recipe (enter 1-#{count+1})"
+      options.each_with_index { |o, i| puts "#{i+1}. #{o.capitalize} recipes" }
+      puts "#{count+1}. Nevermind. Go back."
 
       input = gets.strip.to_i
       puts ""
 
-      if input.between?(1, main_dishes.count)
-        get_category(main_dishes[input-1])
+      if input.between?(1, count)
+        item = options[input-1]
+        get_category(item)
+      elsif input == count+1
+        puts "Yeah, let's look at something else."
+        main_menu
       else
         puts "That item is not on the list."
-        main_dish_menu
+        main_dish_menu(menu_type)
       end
     end
 
-    def get_category(input)
-        category = Category.new(input)
-        count = category.items.count
-
-        puts "Which #{input} recipe would you like to add? (enter 1-#{count+1})"
-        category.items.each_with_index { |r, i| puts "#{i+1}. #{r}" }
-        puts "#{count+1}. Nevermind. Go back."
-
-        input = gets.strip.to_i
-        item = category.items[input-1]
-        puts ""
-
-        if input.between?(1, count)
-          get_recipe(item)
-        elsif input == count+1
-          puts "Yeah, let's look at something else."
-          main_dish_menu
-        else
-          puts "That item is not on the list."
-          get_category(input)
-        end
+    def get_menu(name)
+      if Menu.all_names.include?(name)
+        # Menu.execute
+      else
+        Menu.new(name)
+        # Menu.execute
+      end
     end
+
+    def get_category(menu_type)
+      category = Category.new(menu_type)
+      options = category.items
+      count = options.count
+
+      puts "Choose a #{menu_type} recipe (enter 1-#{count+1})"
+      options.each_with_index { |o, i| puts "#{i+1}. #{o.capitalize} recipes" }
+      puts "#{count+1}. Nevermind. Go back."
+
+      input = gets.strip.to_i
+      puts ""
+
+      if input.between?(1, count)
+        item = options[input-1]
+        get_recipe(item) # changes - needs to move to different menu
+      elsif input == count+1
+        puts "Yeah, let's look at something else."
+        main_dish_menu("main dish") # changes - needs to move to different menu
+      else
+        puts "That item is not on the list."
+        get_category(menu_type) # changes - needs to move to different menu
+      end
+  end
 
 
 
