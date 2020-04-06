@@ -5,7 +5,7 @@ class Scraper
   def self.scrape_recipe(url)
     doc = Nokogiri::HTML(open(url))
     items = doc.css(".checkList__line")
-    items = doc.css(".ingredients-item-name") if items.count == 0
+    items = doc.css(".ingredients-item-name") if items.count == 0   # for chicken, pork, and dinner salads
 
     ingredients = []
 
