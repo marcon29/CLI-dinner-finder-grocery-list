@@ -1,26 +1,25 @@
-class Recipe < PageType
   # make base url variable???
+
+
+class Recipe < PageType
+  # attr_accessor :name, :slug, :items
 
   @@all = []
 
   def initialize(name)
     super
+    # @name = name
+    # @slug = name.gsub(" ", "-").downcase
     @items = Scraper.scrape_recipe(create_url)
     @@all << self
   end
 
-  # converts recipe name to url
   def create_url
     "https://www.allrecipes.com/recipe/" << slug
   end
 
   def self.all
     @@all
-  end
-
-  # find a recipe (returns recipe object, nil if names don't match)
-  def self.find_by_name(name)
-    self.all.detect { |r| r.name == name }
   end
 
   # delete a recipe
@@ -32,6 +31,5 @@ class Recipe < PageType
   def self.delete_all
     self.all.clear
   end
-
 
 end
