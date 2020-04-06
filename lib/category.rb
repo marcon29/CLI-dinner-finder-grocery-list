@@ -54,7 +54,11 @@ class Category < PageType
     count = items.count
 
     puts "Choose a #{@name} recipe (enter 1-#{count+1})"
-    items.each_with_index { |o, i| puts "#{i+1}. #{o.capitalize} recipes" }
+    if @parent == "main dish" || @parent == "side dish"
+      items.each_with_index { |o, i| puts "#{i+1}. #{o.capitalize}" }
+    else
+      items.each_with_index { |o, i| puts "#{i+1}. #{o.capitalize} recipes" }
+    end
     puts "#{count+1}.    Nevermind. Go back."
     puts ""
 
