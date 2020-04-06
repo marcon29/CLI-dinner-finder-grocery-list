@@ -1,7 +1,7 @@
 require_relative "version"
 
 require 'bundler/setup'
-Bundler.require(:default)
+Bundler.require(:default, :development)
 
 module CliDinnerFinderGroceryList
   class Error < StandardError; end
