@@ -3,14 +3,11 @@ class Category < PageType
 
   @@all = []
 
-  # add to following arrays to extend what pages are scraped on website
+  # add to following class arrays to extend what pages are scraped on website
   # needs to match last part of url without hyphens
   # double check that url logic still works, may also need to adjust scrape parameters
-
-  #@@meal_types = ["side dish", "main dish"]
-
   @@meal_types = ["main dish", "side dish"]
-  @@main_dishes = ["beef", "chicken", "vegetarian", "vegan", "pork", "seafood", "turkey", "salads"]
+  @@main_dishes = ["beef", "chicken", "pork", "seafood", "turkey", "salads", "vegetarian", "vegan"]
   @@side_dishes = ["vegetables", "rice", "potatoes", "grains", "vegetarian", "vegan"]
 
   def initialize(name)
@@ -23,35 +20,32 @@ class Category < PageType
     if @name == "meal type"
       @parent = "main"
       @items =  @@meal_types
-    elsif @@meal_types.include?(@name)
+    elsif Category.meal_types.include?(name)
       @parent = "meal type"
-      @cat_slug = @parent.gsub(" ", "-").downcase
+      @cat_slug = parent.gsub(" ", "-").downcase
 
-      # the commented out code on next line is to switch to using scraper for meal types
-            # @items = Scraper.scrape_category(create_url)
-                # only returns top items on type pages
-                # will require some refactoring to add this and keep full browsing abilities
-      if @name == "main dish"
-        @items =  @@main_dishes
-      elsif @name == "side dish"
-        @items =  @@side_dishes
-      end
+      if @name == "main dish"               # the commented out code on next line is to switch to using scraper for meal types
+        @items =  Category.main_dishes      # @items = Scraper.scrape_category(create_url)
+      elsif @name == "side dish"            # would replace conditional block alongside this whole comment
+        @items =  Category.side_dishes      # only returns top items on type pages
+      end                                   # will require some refactoring to add this and keep full browsing abilities
+
     else
-      @parent = @@meal_types.detect do |mt|
+      @parent = Category.meal_types.detect do |mt|
         if Category.find_by_name(mt)
-          Category.find_by_name(mt).items.detect { |dt| dt == @name }
+          Category.find_by_name(mt).items.detect { |dt| dt == name }
         end
       end
-      @cat_slug = @parent.gsub(" ", "-").downcase
+      @cat_slug = parent.gsub(" ", "-").downcase
       @items = Scraper.scrape_category(create_url)
     end
   end
 
   def create_url
-    if @name == "vegetarian" || @name == "vegan"
-      "#{BASE_URL}s/everyday-cooking/#{@slug}/#{@cat_slug}es/"
+    if name == "vegetarian" || name == "vegan"
+      "#{BASE_URL}s/everyday-cooking/#{slug}/#{cat_slug}es/"
     else
-      "#{BASE_URL}s/#{@cat_slug}/#{@slug}/"
+      "#{BASE_URL}s/#{cat_slug}/#{slug}/"
     end
   end
 
@@ -87,7 +81,15 @@ class Category < PageType
     @@all
   end
 
-  def self.meal_type
-    @@meal_type
+  def self.meal_types
+    @@meal_types
+  end
+
+  def self.main_dishes
+    @@main_dishes
+  end
+
+  def self.side_dishes
+    @@side_dishes
   end
 end
