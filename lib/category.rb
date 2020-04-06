@@ -9,6 +9,7 @@
 
 class Category < PageType
   # attr_accessor :name, :slug, :items
+  attr_accessor :parent
 
   @@all = []
 
@@ -16,23 +17,30 @@ class Category < PageType
     super
     # @name = name
     # @slug = name.gsub(" ", "-").downcase
-    get_items
-    #@items = Scraper.scrape_category(create_url)
+    get_attributes
     @@all << self
   end
 
-  def get_items
+  @@meal_type = ["main dish", "side dish"]     # this will be the place to extend
+  @@dish_type = []
+
+  def get_attributes
     if @name == "meal type"
-      @items =  ["main dish", "side dish"]     # this will be the place to extend
-    elsif @name == "main dish"                 # this will become a scraper
+      @items =  @@meal_type
+      @parent = "main"
+    elsif @@meal_type.include?(@name)          # this will become a scraper
       @items =  ["beef", "chicken"]
-    else
+      # scrape => array of dish options
+            # @items =  ["scraped1", "scraped2"..."scrapedN"]
+      @items.each { |i| @@dish_type << i }
+      @parent = "meal type"
+    else #@@dish_type.include?(@name)
       @items = Scraper.scrape_category(create_url)
+      @parent = @@meal_type.detect do |mt|
+        Category.find_by_name(mt).items.detect { |dt| dt == @name }
+      end
     end
-    # elsif @name == "category"
-    #   @options =  Category.new(@name).items
-    # elsif @name == "delete"
-    #   @options =  Recipe.all_instance_names
+binding.pry
   end
 
   # converts meal type and category names to url
@@ -42,6 +50,14 @@ class Category < PageType
 
   def self.all
     @@all
+  end
+
+  def self.meal_type
+    @@meal_type
+  end
+
+  def self.dish_type
+    @@dish_type
   end
 
   def menu
@@ -61,7 +77,7 @@ class Category < PageType
       selection = "back"
     else
       puts "That option is not on the list."
-      selection = "not on list"
+      selection = "bad input"
     end
     selection
   end

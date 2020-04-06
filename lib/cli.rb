@@ -54,7 +54,6 @@ class CLI
     input = normalize(gets.strip)
     puts ""
 
-    # if browse, call browse method, else use user input as recipe name to instantiate recipe object
     if input == "Browse" || input == "Find" || input == "Search" || input == "Lookup"
       browse("meal type")
     elsif Recipe.find_by_name(input)
@@ -131,20 +130,27 @@ class CLI
   end
 
 
-    # need a meal type menu, list of meal types (i.e. main dishes, side dishes, breakfast, lunch, etc.) - make extendable
-    # need main dish menu, list of main dishes (i.e. beef, chicken, vegetarian, etc.) - make extendable
-    # need side dish menu, list of side dishes (i.e. vegetables, rice, potatoes, etc.) - make extendable
-    # need recipe menu, list of all recipes use for delete menu
+
+
 
   # this will control the menu flow for categories
+  # starts w/ name = "meal type"
   def browse(name)
-    get_menu(name)
+    Category.new(name) if !Category.all_names.include?(name)
+    category = Category.find_by_name(name)
+    selection = category.menu
+
+    if selection == "bad input"
+      browse(name)
+    elsif category.parent == "main"
+      browse(selection) if selection != "back"
+    elsif category.parent == "meal type"
+      selection == "back" ? browse(category.parent) : browse(selection)
+    else
+      selection == "back" ? browse(category.parent) : get_recipe(selection)
+    end
   end
 
-  def get_menu(name)
-    Category.new(name) if !Category.all_names.include?(name)
-    Category.find_by_name(name).menu
-  end
 
 
 
