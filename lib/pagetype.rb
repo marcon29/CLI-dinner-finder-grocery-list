@@ -5,7 +5,8 @@ class PageType
 
   def initialize(name)
     @name = name
-    @slug = name.gsub(" ", "-").downcase
+    #@slug = name.gsub(" ", "-").downcase
+    @slug = name.gsub(/[" "']/, " " => "-", "'" => "").downcase
   end
 
   def self.all_names

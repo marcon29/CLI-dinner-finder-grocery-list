@@ -4,10 +4,14 @@ class Category < PageType
   @@all = []
 
   # add to following arrays to extend what pages are scraped on website
+  # needs to match last part of url without hyphens
   # double check that url logic still works, may also need to adjust scrape parameters
+
+  #@@meal_types = ["side dish", "main dish"]
+
   @@meal_types = ["main dish", "side dish"]
-  @@main_dishes = ["beef", "chicken", "vegetarian"]
-  @@side_dishes = ["vegetables", "vegetarian"]
+  @@main_dishes = ["beef", "chicken", "vegetarian", "vegan", "pork", "seafood", "turkey", "salads"]
+  @@side_dishes = ["vegetables", "rice", "potatoes", "grains", "vegetarian", "vegan"]
 
   def initialize(name)
     super
@@ -34,9 +38,10 @@ class Category < PageType
       end
     else
       @parent = @@meal_types.detect do |mt|
-        Category.find_by_name(mt).items.detect { |dt| dt == @name }
+        if Category.find_by_name(mt)
+          Category.find_by_name(mt).items.detect { |dt| dt == @name }
+        end
       end
-
       @cat_slug = @parent.gsub(" ", "-").downcase
       @items = Scraper.scrape_category(create_url)
     end
