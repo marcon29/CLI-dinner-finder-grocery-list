@@ -37,11 +37,11 @@ To clone to your local environment::
 
 To release a new version, update the version number in `config/version.rb`.
 
-This was designed to allow easy extension of meal options. See comments in lib/category.rb.
+This was designed to allow easy extension of meal options. See comments in `lib/category.rb`.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/marcon29/cli_dinner_finder_grocery_list. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/marcon29/cli_dinner_finder_grocery_list.git. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -49,4 +49,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the CliDinnerFinderGroceryList project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/'abstract-convention-6456'/cli_dinner_finder_grocery_list/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the CliDinnerFinderGroceryList project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/marcon29/cli_dinner_finder_grocery_list/blob/master/CODE_OF_CONDUCT.md).
