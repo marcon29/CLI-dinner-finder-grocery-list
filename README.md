@@ -1,38 +1,47 @@
 # CliDinnerFinderGroceryList
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cli_dinner_finder_grocery_list`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Browse Allrecipes.com for dinner recipes, main dishes and side dishes, by primary ingredient. Collect as many recipes as you want. When you’re done, compile all the ingredients from your selected recipes to to make grocery shopping list. All from your CLI.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'cli_dinner_finder_grocery_list'
+gem "CLI-dinner-finder-grocery-list", :git => "git@github.com:marcon29/CLI-dinner-finder-grocery-list.git"
 ```
 
-And then execute:
+And then execute (requires Bundler):
 
-    $ bundle
+    $ bundle install
 
-Or install it yourself as:
+Add to application program file(s):
 
-    $ gem install cli_dinner_finder_grocery_list
+    $ require "CLI-dinner-finder-grocery-list"
 
 ## Usage
+Once installed, navigate to the application's main directory:
 
-TODO: Write usage instructions here
+    $ cd CLI-dinner-finder-grocery-list
+
+Then type type the folling in your command line:
+
+    $ bin/cli_dinner_finder_grocery_list
+
+Select options by number to add and remove recipes to your collection. You can also view the recipes in your collection. Once you have your meal(s) planned out, select "4. Create grocery list" from the home menu to display only the ingredients for all your recipes.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+To clone to your local environment::
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    $ git clone "git@github.com:marcon29/CLI-dinner-finder-grocery-list.git"
+
+To release a new version, update the version number in `config/version.rb`.
+
+This was designed to allow easy extension of meal options. See comments in lib/category.rb.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/'abstract-convention-6456'/cli_dinner_finder_grocery_list. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/marcon29/cli_dinner_finder_grocery_list. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 

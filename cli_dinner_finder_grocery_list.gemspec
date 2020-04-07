@@ -6,13 +6,13 @@ require "config/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "cli_dinner_finder_grocery_list"
-  spec.version       = CliDinnerFinderGroceryList::VERSION
+  spec.version       = CliDinnerFinderGroceryList::config::VERSION
   spec.authors       = ["'Mark Stabler'"]
-  spec.email         = ["'mark@markstabler.com'"]
+  spec.email         = ["'online@markstabler.com'"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Collect dinner recipes from Allrecipes.com, then compile all the ingredients to make grocery list. All from your CLI.}
+  spec.description   = %q{Browse Allrecipes.com for dinner recipes, main dishes and side dishes, by primary ingredient. Collect as many recipes as you want. When you’re done, compile all the ingredients from your selected recipes to to make grocery shopping list. All from your CLI. }
+  spec.homepage      = "https://github.com/marcon29/dinner-finder-grocery-list-CLI.git"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
